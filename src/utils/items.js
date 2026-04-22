@@ -27,9 +27,11 @@ function escapeHtml(value) {
 }
 
 function toStablePreviewText(value) {
-  // Usamos espacio no separable + salto opcional para evitar que html2canvas
-  // "coma" espacios en la exportación PDF.
-  return escapeHtml(value).replaceAll(' ', '&nbsp;<wbr>');
+  return value
+    .split(' ')
+    .filter(Boolean)
+    .map(escapeHtml)
+    .join('&nbsp;');
 }
 
 function joinLine(item) {
@@ -37,9 +39,9 @@ function joinLine(item) {
   const drinkText = toStablePreviewText(normalizeItemText(item.drink));
 
   return `
-    <div style="display:flex;flex-direction:column;gap:2px;align-items:center;">
+    <div style="display:flex;flex-direction:column;gap:3px;align-items:center;">
       <span style="white-space:normal;word-break:normal;overflow-wrap:break-word;">${dishText}</span>
-      <span style="font-weight:600;color:#475569;white-space:normal;word-break:normal;overflow-wrap:break-word;">${drinkText}</span>
+      <span style="font-weight:600;letter-spacing:0.02em;color:#475569;white-space:normal;word-break:normal;overflow-wrap:break-word;">${drinkText}</span>
     </div>
   `;
 }
@@ -48,7 +50,7 @@ function buildSection(title, titleHint, colorBg, colorText, rows) {
   if (rows.length === 0) return '';
 
   const lines = rows
-    .map((item) => `<div style="font-size:13px;line-height:1.35;">${joinLine(item)}</div>`)
+    .map((item) => `<div style="font-size:14.5px;line-height:1.42;">${joinLine(item)}</div>`)
     .join('');
 
   return `

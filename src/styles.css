@@ -129,6 +129,7 @@ body {
 .basic-main-grid {
   grid-template-columns: 1fr;
   gap: 10px;
+  width: 100%;
 }
 
 .basic-main-grid .field {
@@ -136,11 +137,14 @@ body {
   grid-template-columns: 160px minmax(0, 1fr);
   align-items: center;
   gap: 10px;
+  min-width: 0;
 }
 
 .basic-main-grid .field span {
   margin: 0;
   font-size: 0.86rem;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
 .basic-main-grid input,
@@ -151,6 +155,8 @@ body {
 }
 
 .basic-main-grid input[type='date'] {
+  appearance: none;
+  -webkit-appearance: none;
   min-width: 0;
 }
 
@@ -514,15 +520,6 @@ td.actions {
 }
 
 @media (max-width: 480px) {
-  .basic-main-grid .field {
-    grid-template-columns: 94px minmax(0, 1fr);
-    gap: 8px;
-  }
-
-  .basic-main-grid .field span {
-    font-size: 0.82rem;
-  }
-
   .basic-date-grid input[type='date'] {
     font-size: 0.82rem;
     padding: 8px;
@@ -539,10 +536,14 @@ td.actions {
   }
 }
 
-@media (max-width: 360px) {
+@media (max-width: 640px) {
   .basic-main-grid .field {
     grid-template-columns: 1fr;
     gap: 6px;
+  }
+
+  .basic-main-grid .field span {
+    font-size: 0.82rem;
   }
 }
 
