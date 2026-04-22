@@ -15,6 +15,7 @@ function ItemsSection({
   return (
     <section className="card">
       <h2>2) Plato y refresco</h2>
+      <p className="help-text">Ingrese el plato y el refresco por día. Luego use Agregar para guardarlo en la lista.</p>
       <div className="grid four item-entry-grid">
         <FormField label="Día">
           <select className="combo-field" value={editor.day} onChange={(e) => onEditorChange('day', e.target.value)}>

@@ -5,7 +5,7 @@ function BasicInfoSection({ form, onFieldChange }) {
     <section className="card basic-info-card">
       <h2>1) Datos principales</h2>
       <p className="help-text">Complete estos campos primero para ver el encabezado del menú.</p>
-      <div className="grid two">
+      <div className="grid basic-main-grid">
         <FormField label="Título del menú">
           <input
             className="basic-input"
@@ -20,8 +20,6 @@ function BasicInfoSection({ form, onFieldChange }) {
             onChange={(e) => onFieldChange('school_name', e.target.value)}
           />
         </FormField>
-      </div>
-      <div className="grid two basic-date-grid">
         <FormField label="Fecha inicio">
           <input
             className="combo-field"
