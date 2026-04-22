@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{menu_title}} - {{school_name}}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg1: #e8f7ff;
+        --bg2: #fef3ff;
+        --card: #ffffff;
+        --ink: #1d2433;
+        --muted: #5d6a7e;
+        --line: #d4dcee;
+        --head: #e8f0ff;
+        --chip: #bfd4ff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Nunito", sans-serif;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at 10% 8%, #d8fff5 0%, transparent 22%),
+          radial-gradient(circle at 88% 12%, #ffe0f3 0%, transparent 24%),
+          linear-gradient(135deg, var(--bg1), var(--bg2));
+        padding: 20px;
+      }
+
+      .sheet {
+        max-width: 1220px;
+        margin: 0 auto;
+        background: rgba(255, 255, 255, 0.78);
+        backdrop-filter: blur(6px);
+        border: 1px solid rgba(255, 255, 255, 0.9);
+        border-radius: 32px;
+        box-shadow: 0 20px 65px rgba(43, 66, 118, 0.18);
+        padding: 30px 28px 22px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .blob {
+        position: absolute;
+        border-radius: 999px;
+        filter: blur(2px);
+        opacity: 0.35;
+        z-index: 0;
+      }
+
+      .blob.a {
+        width: 260px;
+        height: 260px;
+        background: #7dd3fc;
+        top: -120px;
+        left: -80px;
+      }
+
+      .blob.b {
+        width: 220px;
+        height: 220px;
+        background: #c4b5fd;
+        bottom: -110px;
+        right: -70px;
+      }
+
+      .school-avatar {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 140px;
+        height: 140px;
+        object-fit: contain;
+        z-index: 2;
+        filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.14));
+      }
+
+      .content {
+        position: relative;
+        z-index: 3;
+      }
+
+      .header {
+        text-align: center;
+        padding: 18px 80px 6px;
+      }
+
+      .title-chip {
+        display: inline-block;
+        font-family: "Fredoka", sans-serif;
+        font-size: clamp(2.1rem, 5vw, 4rem);
+        font-weight: 700;
+        background: var(--chip);
+        padding: 8px 24px;
+        border-radius: 18px;
+        letter-spacing: 0.02em;
+      }
+
+      .subtitle {
+        margin: 12px 0 0;
+        font-family: "Fredoka", sans-serif;
+        font-size: clamp(1.8rem, 4vw, 3rem);
+        font-weight: 600;
+      }
+
+      .meta {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+      }
+
+      .pill {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 7px 12px;
+        font-weight: 800;
+        color: var(--muted);
+      }
+
+      .table-shell {
+        margin-top: 20px;
+        overflow-x: auto;
+      }
+
+      table {
+        width: 100%;
+        min-width: 980px;
+        table-layout: fixed;
+        border-collapse: separate;
+        border-spacing: 0;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        overflow: hidden;
+        background: var(--card);
+      }
+
+      th,
+      td {
+        border-right: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        text-align: center;
+        padding: 14px 10px;
+      }
+
+      tr > *:last-child {
+        border-right: 0;
+      }
+
+      tbody tr:last-child td {
+        border-bottom: 0;
+      }
+
+      th {
+        background: var(--head);
+        font-family: "Fredoka", sans-serif;
+        font-size: 1.06rem;
+        font-weight: 600;
+      }
+
+      td {
+        font-size: 1rem;
+        font-weight: 700;
+        width: 20%;
+        vertical-align: top;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+      }
+
+      .footer {
+        margin-top: 18px;
+        display: grid;
+        gap: 14px;
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+
+      .card {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 14px;
+        box-shadow: 0 6px 16px rgba(80, 103, 150, 0.1);
+        text-align: center;
+      }
+
+      .card h3 {
+        margin: 0 0 6px;
+        font-family: "Fredoka", sans-serif;
+        font-size: clamp(1.45rem, 2.4vw, 2rem);
+      }
+
+      .card p {
+        margin: 0;
+        font-size: clamp(1rem, 1.8vw, 1.3rem);
+        font-weight: 800;
+        line-height: 1.35;
+      }
+
+      .pay-icons {
+        margin-top: 8px;
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .pay-badge {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .pay-item {
+        width: 64px;
+        height: 64px;
+        border-radius: 14px;
+        background: #f9fbff;
+        border: 1px solid var(--line);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .pay-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        background: #fff;
+      }
+
+      .pay-label {
+        font-size: 0.85rem;
+        font-weight: 800;
+        color: var(--muted);
+      }
+
+      .contact-phone {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+
+      .wa-icon {
+        width: 30px;
+        height: 30px;
+        object-fit: contain;
+        flex: 0 0 auto;
+      }
+
+      .school-avatar[src*="{{"] {
+        display: none;
+      }
+
+      .pay-item img[src*="{{"] {
+        display: none;
+      }
+
+      .wa-icon[src*="{{"] {
+        display: none;
+      }
+
+      @media (max-width: 960px) {
+        .sheet {
+          border-radius: 20px;
+          padding: 18px 12px;
+        }
+
+        .header {
+          padding: 14px 56px 4px;
+        }
+
+        .footer {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media print {
+        body {
+          padding: 0;
+          background: #fff;
+        }
+
+        .sheet {
+          border-radius: 0;
+          box-shadow: none;
+          border: 0;
+          max-width: 100%;
+          background: #fff;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="sheet">
+      <div class="blob a"></div>
+      <div class="blob b"></div>
+
+      <img class="school-avatar" src="{{school_avatar}}" alt="Avatar escolar" />
+
+      <div class="content">
+        <header class="header">
+          <div class="title-chip">{{menu_title}}</div>
+          <h2 class="subtitle">{{school_name}}</h2>
+          <div class="meta">
+            <span class="pill">{{week_label}}</span>
+          </div>
+        </header>
+
+        <section class="table-shell">
+          <table>
+            <thead>
+              <tr>
+                <th>{{days.monday}}</th>
+                <th>{{days.tuesday}}</th>
+                <th>{{days.wednesday}}</th>
+                <th>{{days.thursday}}</th>
+                <th>{{days.friday}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{dishes.monday}}</td>
+                <td>{{dishes.tuesday}}</td>
+                <td>{{dishes.wednesday}}</td>
+                <td>{{dishes.thursday}}</td>
+                <td>{{dishes.friday}}</td>
+              </tr>
+              <tr>
+                <td>{{drinks.monday}}</td>
+                <td>{{drinks.tuesday}}</td>
+                <td>{{drinks.wednesday}}</td>
+                <td>{{drinks.thursday}}</td>
+                <td>{{drinks.friday}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="footer">
+          <article class="card">
+            <h3>Costos</h3>
+            <p>{{cost_daily}}</p>
+            <p>{{cost_a_la_carte}}</p>
+          </article>
+
+          <article class="card">
+            <h3>Más información</h3>
+            <p>{{contact_name}}</p>
+            <p class="contact-phone">
+              <img class="wa-icon" src="{{whatsapp_icon}}" alt="WhatsApp" />
+              <span>{{contact_phone}}</span>
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Medios de pago</h3>
+            <div class="pay-icons">
+              <span class="pay-badge">
+                <span class="pay-item"><img src="{{payment_methods.yape_icon}}" alt="Yape" /></span>
+                <span class="pay-label">Yape</span>
+              </span>
+              <span class="pay-badge">
+                <span class="pay-item"><img src="{{payment_methods.plin_icon}}" alt="Plin" /></span>
+                <span class="pay-label">Plin</span>
+              </span>
+            </div>
+          </article>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>
