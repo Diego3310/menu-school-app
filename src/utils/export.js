@@ -28,6 +28,17 @@ async function renderHtmlInHiddenFrame(finalHtml) {
     frame.srcdoc = finalHtml;
   });
 
+  const doc = frame.contentDocument;
+  if (doc?.fonts?.ready) {
+    try {
+      await doc.fonts.ready;
+    } catch {
+      // Si falla la carga de fuentes externas, continuamos con fuentes de respaldo.
+    }
+  }
+
+  await new Promise((resolve) => setTimeout(resolve, 120));
+
   return frame;
 }
 
@@ -40,17 +51,19 @@ export async function downloadPdfFromHtml(finalHtml, fileName) {
       throw new Error('No se pudo preparar el documento para PDF');
     }
 
-    const canvas = await html2canvas(doc.documentElement, {
-      scale: 2,
+    const target = doc.querySelector('.sheet') || doc.documentElement;
+
+    const canvas = await html2canvas(target, {
+      scale: 3,
       useCORS: true,
       backgroundColor: '#ffffff',
       scrollX: 0,
       scrollY: 0,
-      windowWidth: frame.clientWidth,
-      windowHeight: frame.clientHeight,
+      windowWidth: doc.documentElement.scrollWidth,
+      windowHeight: doc.documentElement.scrollHeight,
     });
 
-    const imgData = canvas.toDataURL('image/jpeg', 0.98);
+    const imgData = canvas.toDataURL('image/png');
 
     const pdf = new jsPDF({
       orientation: 'landscape',
@@ -79,7 +92,7 @@ export async function downloadPdfFromHtml(finalHtml, fileName) {
     const x = (pageWidth - drawWidth) / 2;
     const y = (pageHeight - drawHeight) / 2;
 
-    pdf.addImage(imgData, 'JPEG', x, y, drawWidth, drawHeight, undefined, 'FAST');
+    pdf.addImage(imgData, 'PNG', x, y, drawWidth, drawHeight, undefined, 'SLOW');
     pdf.save(fileName);
   } finally {
     document.body.removeChild(frame);

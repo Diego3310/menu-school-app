@@ -143,6 +143,17 @@ body {
   font-size: 0.86rem;
 }
 
+.basic-main-grid input,
+.basic-main-grid select {
+  min-width: 0;
+  max-width: 100%;
+  width: 100%;
+}
+
+.basic-main-grid input[type='date'] {
+  min-width: 0;
+}
+
 .basic-date-grid input[type='date'] {
   min-height: 40px;
   min-width: 0;
@@ -296,22 +307,17 @@ select:focus {
 
 .items-table th:nth-child(1),
 .items-table td:nth-child(1) {
-  width: 22%;
+  width: 94px;
 }
 
 .items-table th:nth-child(2),
 .items-table td:nth-child(2) {
-  width: 16%;
+  width: auto;
 }
 
 .items-table th:nth-child(3),
 .items-table td:nth-child(3) {
-  width: 42%;
-}
-
-.items-table th:nth-child(4),
-.items-table td:nth-child(4) {
-  width: 20%;
+  width: 96px;
   text-align: center;
 }
 
@@ -325,22 +331,27 @@ select:focus {
   text-align: center;
 }
 
-.items-table td:nth-child(1),
-.items-table td:nth-child(2) {
+.items-table td:nth-child(1) {
   text-align: center;
 }
 
-.items-table td:nth-child(3) {
+.items-table td:nth-child(2) {
   text-align: left;
   word-break: break-word;
   overflow-wrap: anywhere;
 }
 
 .items-table td.actions {
-  text-align: right;
-  white-space: nowrap;
-  padding-left: 10px;
-  padding-right: 14px;
+  text-align: center;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.action-group {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 }
 
 table {
@@ -381,12 +392,12 @@ td.actions {
 }
 
 .icon-btn {
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   padding: 0;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   line-height: 1;
-  margin-left: 4px;
+  margin: 0;
 }
 
 .select-small {
@@ -504,7 +515,7 @@ td.actions {
 
 @media (max-width: 480px) {
   .basic-main-grid .field {
-    grid-template-columns: 120px minmax(0, 1fr);
+    grid-template-columns: 94px minmax(0, 1fr);
     gap: 8px;
   }
 
@@ -523,7 +534,15 @@ td.actions {
   }
 
   .items-table td.actions {
-    padding-right: 12px;
+    padding-right: 8px;
+    padding-left: 8px;
+  }
+}
+
+@media (max-width: 360px) {
+  .basic-main-grid .field {
+    grid-template-columns: 1fr;
+    gap: 6px;
   }
 }
 

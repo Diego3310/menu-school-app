@@ -11,11 +11,35 @@ function collectByType(items, day) {
   };
 }
 
+function normalizeItemText(value) {
+  return String(value ?? '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function escapeHtml(value) {
+  return value
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+}
+
+function toStablePreviewText(value) {
+  // Usamos espacio no separable + salto opcional para evitar que html2canvas
+  // "coma" espacios en la exportación PDF.
+  return escapeHtml(value).replaceAll(' ', '&nbsp;<wbr>');
+}
+
 function joinLine(item) {
+  const dishText = toStablePreviewText(normalizeItemText(item.dish));
+  const drinkText = toStablePreviewText(normalizeItemText(item.drink));
+
   return `
     <div style="display:flex;flex-direction:column;gap:2px;align-items:center;">
-      <span>${item.dish}</span>
-      <span style="font-weight:600;color:#475569;">${item.drink}</span>
+      <span style="white-space:normal;word-break:normal;overflow-wrap:break-word;">${dishText}</span>
+      <span style="font-weight:600;color:#475569;white-space:normal;word-break:normal;overflow-wrap:break-word;">${drinkText}</span>
     </div>
   `;
 }

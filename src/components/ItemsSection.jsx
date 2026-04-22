@@ -65,7 +65,6 @@ function ItemsSection({
           <thead>
             <tr>
               <th>Día</th>
-              <th>Tipo</th>
               <th>Plato</th>
               <th>Acciones</th>
             </tr>
@@ -73,7 +72,7 @@ function ItemsSection({
           <tbody>
             {items.length === 0 ? (
               <tr>
-                <td className="empty-row" colSpan={4}>
+                <td className="empty-row" colSpan={3}>
                   Sin registros.
                 </td>
               </tr>
@@ -81,27 +80,28 @@ function ItemsSection({
               items.map((item) => (
                 <tr key={item.id}>
                   <td>{DAY_LABELS[item.day]}</td>
-                  <td>{item.type === 'menu' ? 'Menú' : 'Carta'}</td>
                   <td>{item.dish}</td>
                   <td className="actions">
-                    <button
-                      className="row-btn icon-btn"
-                      type="button"
-                      onClick={() => onEdit(item.id)}
-                      title="Editar"
-                      aria-label="Editar"
-                    >
-                      ✏️
-                    </button>{' '}
-                    <button
-                      className="row-btn delete icon-btn"
-                      type="button"
-                      onClick={() => onDelete(item.id)}
-                      title="Eliminar"
-                      aria-label="Eliminar"
-                    >
-                      ✕
-                    </button>
+                    <div className="action-group">
+                      <button
+                        className="row-btn icon-btn"
+                        type="button"
+                        onClick={() => onEdit(item.id)}
+                        title="Editar"
+                        aria-label="Editar"
+                      >
+                        ✏️
+                      </button>
+                      <button
+                        className="row-btn delete icon-btn"
+                        type="button"
+                        onClick={() => onDelete(item.id)}
+                        title="Eliminar"
+                        aria-label="Eliminar"
+                      >
+                        ✕
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))
